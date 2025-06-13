@@ -1,6 +1,7 @@
 package ask
 
 import (
+	"errors"
 	"testing"
 )
 
@@ -51,4 +52,7 @@ func TestSimple(t *testing.T) {
 	var u *User
 	t.Log(If(u, "有用户", "无用户"))       // 输出: 无用户
 	t.Log(If(&User{}, "有用户", "无用户")) // 输出: 有用户
+
+	// 6. 错误处理
+	t.Log(If(errors.New("some error"), "有错误", "无错误")) // 输出: 有错误
 }
