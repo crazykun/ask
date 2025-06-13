@@ -16,19 +16,19 @@ go get github.com/crazykun/ask
 ### 三目运算符：`If(condition, trueVal, falseVal)`
 
 ```go
-result := If(true, "yes", "no") // 返回 "yes"
-result := If(false, "yes", "no") // 返回 "no"
-result := If("non-empty", "yes", "no") // 返回 "yes"
-result := If("", "yes", "no") // 返回 "no"
+result := ask.If(true, "yes", "no") // 返回 "yes"
+result := ask.If(false, "yes", "no") // 返回 "no"
+result := ask.If("non-empty", "yes", "no") // 返回 "yes"
+result := ask.If("", "yes", "no") // 返回 "no"
 ```
 
 ### 空值合并运算符：`Ifelse(value, defaultVal)`
 
 ```go
-value := Ifelse("", "default") // 返回 "default"
-value := Ifelse("custom", "default") // 返回 "custom"
-value := Ifelse(0, 10) // 返回 10
-value := Ifelse(5, 10) // 返回 5
+value := ask.Ifelse("", "default") // 返回 "default"
+value := ask.Ifelse("custom", "default") // 返回 "custom"
+value := ask.Ifelse(0, 10) // 返回 10
+value := ask.Ifelse(5, 10) // 返回 5
 ```
 
 ## 支持的类型
