@@ -14,8 +14,11 @@ func If[T any, C any](condition C, trueVal, falseVal T) T {
 		return falseVal
 	}
 
-	// 判断是不是error类型
-	if err, ok := any(condition).(error); ok && err != nil {
+	// 判断是不是error类型 - 修复逻辑：error非nil时应该返回trueVal
+	if err, ok := any(condition).(error); ok {
+		if err != nil {
+			return trueVal
+		}
 		return falseVal
 	}
 
@@ -42,8 +45,6 @@ func IsZero(v any) bool {
 		return true
 	}
 
-	rv := reflect.ValueOf(v)
-
 	// 特殊处理常见基础类型，避免反射开销
 	switch x := v.(type) {
 	case bool:
@@ -68,19 +69,34 @@ func IsZero(v any) bool {
 		return x == 0
 	case uint64:
 		return x == 0
+	case uintptr:
+		return x == 0
 	case float32:
 		return x == 0
 	case float64:
 		return x == 0
+	case complex64:
+		return x == 0
+	case complex128:
+		return x == 0
 	case string:
 		return x == ""
+	case error:
+		return x == nil
 	}
 
 	// 反射处理复杂类型
+	rv := reflect.ValueOf(v)
 	switch rv.Kind() {
 	case reflect.Ptr, reflect.Slice, reflect.Map,
 		reflect.Chan, reflect.Func, reflect.Interface:
 		return rv.IsNil()
+	case reflect.Array:
+		// 数组需要检查所有元素
+		return rv.IsZero()
+	case reflect.Struct:
+		// 结构体需要检查所有字段
+		return rv.IsZero()
 	default:
 		return rv.IsZero()
 	}
