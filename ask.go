@@ -24,9 +24,9 @@ func If[T any, C any](condition C, trueVal, falseVal T) T {
 	// Special handling for error type
 	if err, ok := any(condition).(error); ok {
 		if err != nil {
-			return trueVal
+			return falseVal
 		}
-		return falseVal
+		return trueVal
 	}
 
 	// General zero value check
@@ -61,6 +61,50 @@ func IsEmpty(v any) bool {
 	case string:
 		return len(x) == 0
 	case []any:
+		return len(x) == 0
+	case []bool:
+		return len(x) == 0
+	case []int:
+		return len(x) == 0
+	case []int8:
+		return len(x) == 0
+	case []int16:
+		return len(x) == 0
+	case []int32:
+		return len(x) == 0
+	case []int64:
+		return len(x) == 0
+	case []uint:
+		return len(x) == 0
+	case []uint8:
+		return len(x) == 0
+	case []uint16:
+		return len(x) == 0
+	case []uint32:
+		return len(x) == 0
+	case []uint64:
+		return len(x) == 0
+	case []uintptr:
+		return len(x) == 0
+	case []float32:
+		return len(x) == 0
+	case []float64:
+		return len(x) == 0
+	case []complex64:
+		return len(x) == 0
+	case []complex128:
+		return len(x) == 0
+	case []string:
+		return len(x) == 0
+	case map[string]any:
+		return len(x) == 0
+	case map[string]string:
+		return len(x) == 0
+	case map[string]int:
+		return len(x) == 0
+	case map[int]string:
+		return len(x) == 0
+	case map[int]int:
 		return len(x) == 0
 	}
 
@@ -125,6 +169,53 @@ func IsZero(v any) bool {
 		return x == ""
 	case error:
 		return x == nil
+	// 添加切片和映射的快速路径
+	case []bool:
+		return len(x) == 0
+	case []int:
+		return len(x) == 0
+	case []int8:
+		return len(x) == 0
+	case []int16:
+		return len(x) == 0
+	case []int32:
+		return len(x) == 0
+	case []int64:
+		return len(x) == 0
+	case []uint:
+		return len(x) == 0
+	case []uint8:
+		return len(x) == 0
+	case []uint16:
+		return len(x) == 0
+	case []uint32:
+		return len(x) == 0
+	case []uint64:
+		return len(x) == 0
+	case []uintptr:
+		return len(x) == 0
+	case []float32:
+		return len(x) == 0
+	case []float64:
+		return len(x) == 0
+	case []complex64:
+		return len(x) == 0
+	case []complex128:
+		return len(x) == 0
+	case []string:
+		return len(x) == 0
+	case []any:
+		return len(x) == 0
+	case map[string]any:
+		return len(x) == 0
+	case map[string]string:
+		return len(x) == 0
+	case map[string]int:
+		return len(x) == 0
+	case map[int]string:
+		return len(x) == 0
+	case map[int]int:
+		return len(x) == 0
 	}
 
 	// Reflection fallback for complex types

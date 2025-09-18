@@ -21,7 +21,7 @@ func TestIf(t *testing.T) {
 		{"zero int", 0, "yes", "no", "no"},
 		{"nil pointer", (*int)(nil), "yes", "no", "no"},
 		{"non-nil error", errors.New("error"), "yes", "no", "yes"},
-		{"nil error", error(nil), "yes", "no", "no"},
+		{"nil error", error(nil), "yes", "no", "yes"},
 	}
 
 	for _, tt := range tests {
@@ -72,9 +72,15 @@ func TestIsZero(t *testing.T) {
 		{"slice nil", []int(nil), true},
 		{"slice empty", []int{}, true},
 		{"slice non-empty", []int{1, 2}, false},
+		{"string slice nil", []string(nil), true},
+		{"string slice empty", []string{}, true},
+		{"string slice non-empty", []string{"a", "b"}, false},
 		{"map nil", map[string]int(nil), true},
 		{"map empty", map[string]int{}, true},
 		{"map non-empty", map[string]int{"a": 1}, false},
+		{"string map nil", map[string]string(nil), true},
+		{"string map empty", map[string]string{}, true},
+		{"string map non-empty", map[string]string{"a": "1"}, false},
 		{"pointer nil", (*int)(nil), true},
 		{"error nil", error(nil), true},
 		{"error non-nil", errors.New("error"), false},
@@ -100,8 +106,12 @@ func TestIsEmpty(t *testing.T) {
 		{"string non-empty", "hello", false},
 		{"slice empty", []int{}, true},
 		{"slice non-empty", []int{1}, false},
+		{"string slice empty", []string{}, true},
+		{"string slice non-empty", []string{"a"}, false},
 		{"map empty", map[string]int{}, true},
 		{"map non-empty", map[string]int{"a": 1}, false},
+		{"string map empty", map[string]string{}, true},
+		{"string map non-empty", map[string]string{"a": "1"}, false},
 		{"array empty", [0]int{}, true},
 		{"array non-empty", [1]int{42}, false},
 	}
@@ -155,8 +165,6 @@ func TestDefault(t *testing.T) {
 		})
 	}
 }
-
-
 
 // Example tests for documentation
 func ExampleIf() {

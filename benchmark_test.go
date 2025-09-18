@@ -179,6 +179,34 @@ func BenchmarkIsEmptyNative(b *testing.B) {
 	}
 }
 
+func BenchmarkIsZeroStringSlice(b *testing.B) {
+	slice := []string{"a", "b", "c"}
+	for i := 0; i < b.N; i++ {
+		_ = IsZero(slice)
+	}
+}
+
+func BenchmarkIsZeroStringSliceNative(b *testing.B) {
+	slice := []string{"a", "b", "c"}
+	for i := 0; i < b.N; i++ {
+		_ = len(slice) == 0
+	}
+}
+
+func BenchmarkIsEmptyStringSlice(b *testing.B) {
+	slice := []string{"a", "b", "c"}
+	for i := 0; i < b.N; i++ {
+		_ = IsEmpty(slice)
+	}
+}
+
+func BenchmarkIsEmptyStringSliceNative(b *testing.B) {
+	slice := []string{"a", "b", "c"}
+	for i := 0; i < b.N; i++ {
+		_ = len(slice) == 0
+	}
+}
+
 // Comparative benchmarks for different approaches
 func BenchmarkComplexCondition_Ask(b *testing.B) {
 	user := &struct {
