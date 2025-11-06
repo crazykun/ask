@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -85,12 +84,12 @@ func templateDataExample() {
 
 	for i, article := range articles {
 		data := map[string]interface{}{
-			"title":       ask.Ifelse(article.Title, "无标题"),
-			"author":      ask.Coalesce(article.Author, "匿名作者"),
-			"content":     ask.Ifelse(article.Content, "暂无内容"),
-			"status":      ask.If(article.Published, "已发布", "草稿"),
-			"views":       ask.If(article.Views > 0, fmt.Sprintf("%d 次浏览", article.Views), "暂无浏览"),
-			"popularity":  ask.If(article.Views > 1000, "热门", "普通"),
+			"title":      ask.Ifelse(article.Title, "无标题"),
+			"author":     ask.Coalesce(article.Author, "匿名作者"),
+			"content":    ask.Ifelse(article.Content, "暂无内容"),
+			"status":     ask.If(article.Published, "已发布", "草稿"),
+			"views":      ask.If(article.Views > 0, fmt.Sprintf("%d 次浏览", article.Views), "暂无浏览"),
+			"popularity": ask.If(article.Views > 1000, "热门", "普通"),
 		}
 
 		fmt.Printf("   文章 %d: %v\n", i+1, data)
@@ -105,8 +104,8 @@ func chainedOperationsExample() {
 	// 复杂的条件逻辑
 	processOrder := func(order *Order) string {
 		// 状态检查
-		statusMsg := ask.If(order == nil, "订单不存在", 
-			ask.If(order.IsPaid, 
+		statusMsg := ask.If(order == nil, "订单不存在",
+			ask.If(order.IsPaid,
 				ask.If(order.IsShipped, "已发货", "待发货"),
 				ask.If(order.IsCancelled, "已取消", "待支付")))
 

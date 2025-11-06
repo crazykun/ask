@@ -45,6 +45,11 @@ func main() {
     // 多值合并
     finalValue := ask.Coalesce("", "", "hello", "world")
     fmt.Println(finalValue) // 输出: hello
+
+    // err 非空时候返回trueVal
+    err := errors.New("操作失败")
+    status := ask.If(err, "trueVal", "falseVal")
+    fmt.Println(status) // 输出: trueVal
 }
 ```
 

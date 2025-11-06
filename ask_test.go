@@ -21,7 +21,7 @@ func TestIf(t *testing.T) {
 		{"zero int", 0, "yes", "no", "no"},
 		{"nil pointer", (*int)(nil), "yes", "no", "no"},
 		{"non-nil error", errors.New("error"), "yes", "no", "yes"},
-		{"nil error", error(nil), "yes", "no", "yes"},
+		{"nil error", error(nil), "yes", "no", "no"},
 	}
 
 	for _, tt := range tests {

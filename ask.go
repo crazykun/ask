@@ -6,8 +6,8 @@ import "reflect"
 
 // If implements a ternary operator that supports both boolean conditions and zero value checking.
 //   - If condition is bool type: returns trueVal if true, falseVal if false
+//   - If condition is error type: returns trueVal if error is non-nil (error state), falseVal if nil (success state)
 //   - If condition is non-bool type: returns trueVal if non-zero, falseVal if zero
-//   - Special handling for error type: returns trueVal if error is non-nil
 //
 // If 三目运算符 (支持布尔条件或值非空判断)
 //   - 若 condition 为 bool 类型：true 返回 trueVal，false 返回 falseVal
@@ -21,12 +21,12 @@ func If[T any, C any](condition C, trueVal, falseVal T) T {
 		return falseVal
 	}
 
-	// Special handling for error type
+	// Special handling for error type (including typed nil)
 	if err, ok := any(condition).(error); ok {
 		if err != nil {
-			return falseVal
+			return trueVal // error state - return first value (error message)
 		}
-		return trueVal
+		return falseVal // success state (nil error) - return second value (success message)
 	}
 
 	// General zero value check
